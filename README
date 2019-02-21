@@ -6,7 +6,7 @@ treewriter.cc: this program receives a file in the model of 'ggttbar' wich is a 
  - http://home.thep.lu.se/Pythia/pythia82html/SettingsScheme.html
 It also receives an integer with the number of events wanted.
 With these information it is able to produce a simulation and build a particle tree with the ones produced throughout the collision, this tree is written on '[configfilename]tree.root' and can be accessed by the treereader.cc.
-
+ - the new release (02/2019) also organizes the output
 treereader.cc: this program receives a tree file name, for example, 'ggttbartree.root', and the particle ID (an integer), wich is available at:
  - http://home.fnal.gov/~mrenna/lutp0613man2/node44.html
  - http://pdg.lbl.gov/2018/listings/contents_listings.html
