@@ -1,0 +1,42 @@
+!Samuel PP Silveira, Universidade Federal do ABC, 2018
+
+README for using this event simulators
+
+treewriter.cc: this program receives a file in the model of 'ggscbar' wich is a config file, with the parameters of the event.For getting more info about the settings scheme, visit: 
+ - http://home.thep.lu.se/Pythia/pythia82html/SettingsScheme.html
+It also receives an integer with the number of events wanted.
+With these information it is able to produce a simulation and build a particle tree with the ones produced throughout the collision, this tree is written on '[configfilename]tree.root' and can be accessed by the treereader.cc.
+It not just save all the particles info, but it filters what we judge important on this analysis, wich is:
+ - If it is a final state particle (wich means, it travels until the detector)
+ - If it is a anti charm quark (
+ - If it is a strange quark
+ - If it is a W boson and decais in anticharm and strange
+ 
+Note: During the tests, we found out that W decais in general on new W, but these new W are not new particles, but the same in a different step.
+So this sort of filtering take those "garbadge" stuff out, because it does not get W decaing in others W.
+
+ - the new release (02/2019) also organizes the output
+treereader.cc: this program receives a tree file name, for example, 'ggttbartree.root', and the particle ID (an integer), wich is available at:
+ - http://home.fnal.gov/~mrenna/lutp0613man2/node44.html
+ - http://pdg.lbl.gov/2018/listings/contents_listings.html
+This program search the particle on the tree entered, show a histogram and saves it on 'mesonshist/'.
+
+script.cc: this program is usefull only when it is necessary to get multiple particle data from a simulation, it receives a file like 'mesoncodes' with particle codes on it, so it is going to call treereader.cc for each particle code, and a treefile like "ggttbartree.root". It is highly important to review the number of particle to be analysed, because when it starts, multiple histograms are going to appear on the screen and be saved, so, depending on the processing power, it can slow or crash the operational system.
+
+RUNNING REQUIREMENTS
+
+There are two ways for running this codes, for the two of them it is required to have pythia8 and root linked, the step-by-step for it is available at:
+ - http://home.thep.lu.se/~torbjorn/pythia81html/ROOTusage.html
+ - http://www.graverini.net/elena/computing/physics-software/install-pythia/
+
+1) Add these files on pythia examples folder and add these lines on Makefile
+treewriter treereader: $$@.cc $(PREFIX_LIB)/libpythia8.a main92.so
+ifeq ($(ROOT_USE),true)
+	$(CXX) $< main92.so -o $@ -w -I$(ROOT_INCLUDE) $(CXX_COMMON)\
+	 `$(ROOTBIN)root-config --cflags` -Wl,-rpath,./\
+	 -Wl,-rpath,$(ROOT_LIB) `$(ROOT_BIN)root-config --glibs`
+else
+	@echo "Error: $@ requires ROOT"
+endif
+
+2) Build your own Makefile for linking pythia and root and put it in a folder with this system.
