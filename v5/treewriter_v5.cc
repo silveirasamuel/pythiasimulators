@@ -89,7 +89,7 @@ void writeTree(string inputFile, int nEvents){
                     mypart->daughter1 = (pythia.event[i].daughter1());
                     mypart->daughter2 = (pythia.event[i].daughter2());
                     mypart->isFinal = pythia.event[i].isFinal();
-                    break;
+                    continue;
             }
             if (pythia.event[i].idAbs() == WBOSON){
                 if(pythia.event[pythia.event[i].daughter1()].idAbs() == CHARM || pythia.event[pythia.event[i].daughter1()].idAbs() == STRANGE){
@@ -107,7 +107,7 @@ void writeTree(string inputFile, int nEvents){
                         mypart->daughter1 = (pythia.event[i].daughter1());
                         mypart->daughter2 = (pythia.event[i].daughter2());
                         mypart->isFinal = pythia.event[i].isFinal();
-                        break;
+                        continue;
                     }
                 }
             }
