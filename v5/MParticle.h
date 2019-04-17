@@ -8,6 +8,7 @@ class MParticle : public TObject {
 		Double_t pz;
 		Double_t e;
 		Double_t mass;
+		Double_t charge;
 		Int_t id;
 		Int_t pdgcode;
 		Int_t mother1;

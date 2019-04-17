@@ -83,6 +83,7 @@ void writeTree(string inputFile, int nEvents){
                     mypart->py = (pythia.event[i].py());
                     mypart->pz = (pythia.event[i].pz());
                     mypart->e = (pythia.event[i].e());
+                    mypart->charge = (pythia.event[i].charge());
                     mypart->mass = (pythia.event[i].m());
                     mypart->mother1 = (pythia.event[i].mother1());
                     mypart->mother2 = (pythia.event[i].mother2());
